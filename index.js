@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-
+const PORT = 4000;
 
 // init the app
 const app = express()
@@ -19,7 +19,10 @@ app.use(bodyParser.json())
 app.use(function (err, req, res,next){
     res.status(422).send({error: err.message})
 })
+app.listen(PORT,()=>{
+        console.log('ready for reqest')
 
-app.listen(process.env.port || 4000 , function (){
-    console.log('ready for reqest')
 })
+//app.listen(process.env.port || 4000 , function (){
+//    console.log('ready for reqest')
+//})
