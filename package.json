@@ -1,24 +1,24 @@
 {
-  "devDependencies": {
-    "nodemon": "^2.0.22"
-  },
-  "dependencies": {
-    "@tsed/mongoose": "^7.29.0",
-    "@tsed/schema": "^7.29.0",
-    "body": "^5.1.0",
-    "body-parser": "^1.20.2",
-    "express": "^4.18.2",
-    "mongo": "^0.1.0",
-    "mongoose": "^7.2.0"
-  },
-  "name": "advanced",
-  "description": "\"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\" \r \"# advanced\"",
+  "name": "adv",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "Lina Qurom",
-  "license": "ISC"
+  "author": " leena aldeek",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.2.0",
+    "mysql2": "^3.3.1",
+    "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "body-parser": "^1.20.2",
+    "mongo": "^0.1.0",
+    "nodemon": "^2.0.22"
+  }
 }
