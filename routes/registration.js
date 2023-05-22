@@ -8,7 +8,29 @@ router.post('/registration', async (req, res, next) => {
   try {
     // Extract user information from the request body
     const { username, email, password } = req.body;
+    const existingUser = await User.findOne({email});
+  
+    if(existingUser){
+      return res.status(400).json({ msg:"User with same email already exists"});
+  }
 
+  const hashedPassword = await bcryptjs.hash(password, 8);
+
+  let user = new User({
+      email,
+      password : hashedPassword,
+      phone,
+  })
+  user= await user.save();
+  res.json(user);
+} catch(e) {
+  res.status(500).json({error: e.message});
+}
+
+
+});
+
+/*
     // Create a new user instance
     const newUser = new User({
       username,
@@ -26,5 +48,5 @@ router.post('/registration', async (req, res, next) => {
     next(error);
   }
 });
-
+*/
 module.exports = router;
