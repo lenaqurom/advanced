@@ -1,28 +1,29 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-const PORT = 4000;
+const express = require('express');
+const mongoose = require('mongoose');
+const db = require('./db')
+const bodyparser = require('body-parser');
+// Initialize the app
+const app = express();
 
-// init the app
-const app = express()
-
-// connect to mongodb
-mongoose.connect('mongodb://localhost/job-board')
-mongoose.Promise = global.Promise
-app.use(bodyParser.json())
+// Connect to MongoDB
 
 
-// init routes 
-//app.use('/api', require('./routes/api'))
 
-// error handling 
-app.use(function (err, req, res,next){
-    res.status(422).send({error: err.message})
+// Middleware
+app.use(bodyparser.json());
+
+// Routes
+app.use('/api', require('./routes/api'));
+app.use('/api', require('./routes/jobApplications'));
+app.use('/api', require('./routes/registration'));
+app.use('/api', require('./routes/userlogin'));
+
+//error handling 
+app.use(function (err, req ,res ,next){
+  res.status(422).send({error: err.message})
 })
-app.listen(PORT,()=>{
-        console.log('ready for reqest')
-
-})
-//app.listen(process.env.port || 4000 , function (){
-//    console.log('ready for reqest')
-//})
+// Start the server
+const port = process.env.PORT || 4000;
+app.listen(port, function() {
+  console.log(`Server is running on port --- ${port}`);
+});
