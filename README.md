@@ -6,3 +6,4 @@ This is a backend project for a job listings platform.
 - $'npm install'
 - open new terminal window start mongodb: $'mongodb'
 -nodemon index.js
+
