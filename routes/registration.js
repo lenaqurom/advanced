@@ -2,42 +2,37 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../moduls/User');
+const bcryptjs = require('bcryptjs');
 
 // Define the registration route
 router.post('/registration', async (req, res, next) => {
   try {
     // Extract user information from the request body
     const { username, email, password } = req.body;
-    const existingUser = await User.findOne({email});
-  
-    if(existingUser){
-      return res.status(400).json({ msg:"User with same email already exists"});
-  }
+    const hashedPassword = await bcryptjs.hash(password, 6);
 
-  const hashedPassword = await bcryptjs.hash(password, 8);
-
-  let user = new User({
-      email,
-      password : hashedPassword,
-      phone,
-  })
-  user= await user.save();
-  res.json(user);
-} catch(e) {
-  res.status(500).json({error: e.message});
-}
-
-
-});
-
-/*
     // Create a new user instance
     const newUser = new User({
       username,
       email,
-      password,
+      password : hashedPassword,
+      
     });
 
+    router.post("/tokenIsValid", async (req, res) => {
+      try {
+        const token = req.header("x-auth-token");
+        if (!token) return res.json(false);
+        const verified = jwt.verify(token, "passwordKey");
+        if (!verified) return res.json(false);
+    
+        const user = await User.findById(verified.id);
+        if (!user) return res.json(false);
+        res.json(true);
+      } catch (e) {
+        res.status(500).json({ error: e.message });
+      }
+    });
     // Save the user to the database
     const savedUser = await newUser.save();
 
@@ -48,5 +43,5 @@ router.post('/registration', async (req, res, next) => {
     next(error);
   }
 });
-*/
+
 module.exports = router;
