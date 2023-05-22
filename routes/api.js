@@ -20,20 +20,20 @@ router.get('/jobs', function(req, res ,next){
    job.find({}).then(function(jobs){
     res.send(jobs)
     }).catch(next)
-
+   
 });
 
 // Job search
 router.get('/jobs/search', function(req, res, next) {
    const { title, minSalary, maxSalary } = req.query;
-
+ 
    // Build the search query based on the provided filters
    const query = {};
-
+ 
    if (title) {
      query.jobTitle = { $regex: title, $options: 'i' }; // Case-insensitive search by job title
    }
-
+ 
    if (minSalary && maxSalary) {
      query['salaryRange.min'] = { $gte: parseInt(minSalary) };
      query['salaryRange.max'] = { $lte: parseInt(maxSalary) };
@@ -42,7 +42,7 @@ router.get('/jobs/search', function(req, res, next) {
    } else if (maxSalary) {
      query['salaryRange.max'] = { $lte: parseInt(maxSalary) };
    }
-
+ 
    // Perform the search query
    job.find(query)
      .then(function(jobs) {
@@ -50,7 +50,7 @@ router.get('/jobs/search', function(req, res, next) {
      })
      .catch(next);
  });
-
+ 
 //get one job
 router.get('/jobs/:id', function(req, res, next){
    job.findOne({_id: req.params.id})
@@ -145,33 +145,33 @@ router.get('/jopfilter', async (req, res, next) => {
    try {
      // Retrieve search filters from the request query parameters
      const { jobTitle, requirements, minSalary, maxSalary } = req.query;
-
+ 
      // Build the search query based on the provided filters
      const searchQuery = {};
-
+ 
      if (jobTitle) {
        searchQuery.jobTitle = { $regex: jobTitle, $options: 'i' };
      }
-
+ 
      if (requirements) {
        searchQuery.requirements = { $regex: requirements, $options: 'i' };
      }
-
+ 
      if (minSalary || maxSalary) {
        searchQuery.salaryRange = {};
-
+ 
        if (minSalary) {
          searchQuery.salaryRange.min = { $gte: parseInt(minSalary) };
        }
-
+ 
        if (maxSalary) {
          searchQuery.salaryRange.max = { $lte: parseInt(maxSalary) };
        }
      }
-
+ 
      // Perform the search using the constructed query
      const searchResults = await job.find(searchQuery);
-
+ 
      // Send the search results as the response
      res.json(searchResults);
    } catch (error) {

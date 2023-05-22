@@ -15,6 +15,8 @@ app.use(bodyparser.json());
 // Routes
 app.use('/api', require('./routes/api'));
 app.use('/api', require('./routes/jobApplications'));
+app.use('/api', require('./routes/registration'));
+app.use('/api', require('./routes/userlogin'));
 
 //error handling 
 app.use(function (err, req ,res ,next){

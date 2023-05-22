@@ -42,11 +42,11 @@ router.get('/jobApplications/:id', async (req, res, next) => {
     try {
       const applicationId = req.params.id;
       const application = await JobApplication.findById(applicationId);
-
+      
       if (!application) {
         return res.status(404).json({ error: 'Job application not found' });
       }
-
+  
       res.json(application);
     } catch (error) {
       next(error);
@@ -60,15 +60,15 @@ router.put('/applications/:id', async (req, res, next) => {
     try {
       const applicationId = req.params.id;
       const updatedApplicationData = req.body;
-
+  
       const updatedApplication = await JobApplication.findByIdAndUpdate(applicationId, updatedApplicationData, {
         new: true,
       });
-
+  
       if (!updatedApplication) {
         return res.status(404).json({ error: 'Application not found' });
       }
-
+  
       res.json(updatedApplication);
     } catch (error) {
       next(error);
@@ -78,13 +78,13 @@ router.put('/applications/:id', async (req, res, next) => {
 router.delete('/applications/:id', async (req, res, next) => {
     try {
       const applicationId = req.params.id;
-
+  
       const deletedApplication = await JobApplication.findByIdAndDelete(applicationId);
-
+  
       if (!deletedApplication) {
         return res.status(404).json({ error: 'Application not found' });
       }
-
+  
       res.json({ message: 'Application deleted successfully' });
     } catch (error) {
       next(error);
