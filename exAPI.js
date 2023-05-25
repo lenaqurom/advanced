@@ -1,5 +1,5 @@
 const axios = require('axios');
-axios.get('rxdb/plugins/storage-lokijs')
+axios.get('https://developer.spotify.com/documentation/web-api')
   .then(response => {
     // Handle the API response here
     console.log(response.data);
